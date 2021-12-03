@@ -22,19 +22,29 @@ public class Eventi {
 
 	public int prenota() throws Exception {
 		postiPrenotati ++;
-		if (postiPrenotati > postiTot) throw new Exception("Posti terminati");
+		todaysDate = LocalDate.now(); 
+		if (postiPrenotati > postiTot) throw new Exception("I posti da prenotare eccedono i posti disponibili");
 		if (date.isBefore(todaysDate)) throw new Exception("Data invalida");
 		return postiPrenotati;
 	}
 	
 	public int disdici() throws Exception {
 		postiPrenotati --;
+		todaysDate = LocalDate.now(); 
 		if (postiPrenotati < 0) throw new Exception("Nessuna prenotazione da disdire");
 		if (date.isBefore(todaysDate)) throw new Exception("Data invalida");
 		return postiPrenotati;
 	}
 	
+	 public String toString() { 
+         return date.toString()+"-"+titolo;
+      } 
 	 
+	public void printInfo() {
+		int postiDisponibili = postiTot - postiPrenotati;
+		System.out.println("Posti prenotati: " + postiPrenotati);
+		System.out.println("Posti disponibili: " + postiDisponibili);
+	}
 	public String getTitolo() {
 		return titolo;
 	}
